@@ -13,8 +13,7 @@
 ## Routes
 
 
-GET Property
-'/api/basicdetails/:propertyId'
+Property Table Structure
 ```
 
   id: {
@@ -46,10 +45,7 @@ GET Property
 
 ```
 
-GET Photos
-'/api/full/photos/:propertyId'
-'/api/thumb/photos/:propertyId'
-
+Photos Table Structure
 ```
   id: {
     type: Sequelize.INTEGER,
@@ -67,6 +63,24 @@ GET Photos
   },
 
 ```
+GET Property Route
+'/api/basicdetails/:propertyId'
+```
+{
+  :propertyId = id
+}
+
+```
+
+Get Photos Route
+'/api/full/photos/:propertyId'
+'/api/thumb/photos/:propertyId'
+```
+{
+  :propertyId = fk to property's id
+}
+```
+
 
 POST New Property
 '/api/newProperty
