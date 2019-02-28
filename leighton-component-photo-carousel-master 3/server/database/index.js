@@ -54,7 +54,8 @@ const Property = sequelize.define('property', {
 });
 
 const getDetails = id => Property.findAll({
-  where: { id },
+  attributes: ['id', 'name', 'price', 'bed_count', 'bath_count', 'sq_ft'],
+  where: {id: id },
 });
 
 const getPhotos = id => Photo.findAll({
