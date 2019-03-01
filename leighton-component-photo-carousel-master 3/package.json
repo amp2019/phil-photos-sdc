@@ -8,7 +8,7 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "start": "nodemon server/index.js",
+    "start": "nodemon --max-old-space-size=12288 server/index.js",
     "start-production": "npm run seed && node server/index.js",
     "build": "webpack -d --watch",
     "build-production": "webpack",
