@@ -1,2 +1,7 @@
 /config.js
 /node_modules
+/newrelic.js
+/photoSeed.csv
+/photoTest.csv
+/seed.csv
+/newrelic_agent.log

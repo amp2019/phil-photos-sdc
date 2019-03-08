@@ -79,45 +79,35 @@ function writePhotos() {
     property_id: 'property_id'
   };
 
-  var photoData = [];
+  var photoData = '';
   var start = 0;
   var finish = 1000;
   var index = 0;
 
+  var photoStream = fs.createWriteStream('photoSeed.csv');
   function createOneThousand() {
+    var rows = '';
     for(var z = start; z < /*10000000*/finish; z++) {
-      for (var j = 0; j < 20; j++) {
+      for (var j = 0; j < 10; j++) {
         const imgId = Math.floor(Math.random() * 100) + 1;
-        photoData.push([
-          index,
-          `https://s3-us-west-1.amazonaws.com/xillow-talk-photos/property_photos/${j ? 'sample' : 'large'}${imgId}.jpg`,
-          z
-        ]);
+        photoData += index + ',';// + `https://s3-us-west-1.amazonaws.com/xillow-talk-photos/property_photos/${j ? 'sample' : 'large'}${imgId}.jpg` + z;
+        photoData += `https://s3-us-west-1.amazonaws.com/xillow-talk-photos/property_photos/${j ? 'sample' : 'large'}${imgId}.jpg` + ',';
+        photoData += z;
+        photoData += '\n'
         index++;
       }
     }
   }
   createOneThousand();
-  stringify(photoData, { header: true, columns: columns }, (err, output) => {
-    if (err) throw err;
-    fs.writeFile('photoSeed.csv', output, (err) => {
-      if (err) throw err;
-      console.log('photoSeed.csv created');
-    });
-  });
-
-  for(var l = 0; l < 1000; l++) {
-    stringify(photoData, { header: false, columns: columns }, (err, output) => {
-      if (err) throw err;
-      fs.appendFile('photoSeed.csv', output, (err) => {
-        if (err) throw err;
-        photoData = [];
-        start += 1000;
-        finish += 1000;
-        createOneThousand();
-        console.log('1000 rows saved to photoSeed.csv');
-      });
-    });
+  //console.log(photoData);
+  photoStream.write('id,url,property_id\n')
+  for(var h = 0; h < 10000; h++) {
+    console.log(h);
+    photoStream.write(photoData);
+    photoData = '';
+    start += 1000;
+    finish += 1000;
+    createOneThousand();
   }
 }
 

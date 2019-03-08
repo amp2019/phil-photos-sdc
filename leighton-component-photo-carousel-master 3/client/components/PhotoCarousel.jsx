@@ -48,7 +48,7 @@ class PhotoCarousel extends React.Component {
   }
 
   componentDidMount() {
-    const { id } = this.props;
+    const id = this.props.id;
     fetch(`/api/thumb/photos/${id}`) // $SERVER_URL
       .then(response => response.json())
       .then(links => links.map(({ url }) => url))
